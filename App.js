@@ -11,7 +11,7 @@ import {
   Dimensions
 } from "react-native";
 
-// set the timer options to sections by multiplying by milisecons
+// set the timer options to sections by multiplying by miliseconds
 const TEN_SECONDS = 1000 * 10;
 const FIFTEEN_SECONDS = 1000 * 15;
 const THIRTY_SECONDS = 1000 * 30;
@@ -19,14 +19,13 @@ const THIRTY_SECONDS = 1000 * 30;
 // whatever device (ios, tablet, android) that is the screenwidth
 const {width: screenWidth} = Dimensions.get("window");
 
-// set the inital annimated values to zero for all timer options
+// set the inital animated values to zero for all timer options
 const animatedValues = {
   "10": new Animated.Value(0),
   "15": new Animated.Value(0),
   "30": new Animated.Value(0)
 };
 
-// create the core component (this is a 1 component app)
 export default class App extends React.Component {
   // start the state of the time to undefined
   state = {
@@ -36,14 +35,13 @@ export default class App extends React.Component {
   // this lifecycle should be updated. it was depricated in React 16, I just never got around to updating it.
   // takes 2 values, nextprops and nextState
   // clearInterval clears the interval which has been set by setInterval()
-  // setInterval take 2 parameters, a function and a time
+  // setInterval takes 2 parameters, a function and a time
 
   componentWillUpdate = (nextProps, nextState) => {
     clearInterval(this.interval);
     this.stopAnimation();
-    // if the next state of time is not equal to undefined...
-    // then start the animation,
-    // set the interval to the new state timer and vibrate at the same time
+    // if the next state of time is not equal to undefined...then start the animation
+    // set the interval to the new state time and vibrate at the same time
     if (nextState.time && nextState.time !== this.state.time) {
       // !== not equal
       this.pauseAnimations = false;
@@ -54,7 +52,7 @@ export default class App extends React.Component {
 
   // start the animation
   runAnimation = time => {
-    // if it's paused, return early so the animation is not running
+    // if it's paused, return early so the animation is not running?
     if (this.pauseAnimations) return;
 
     // 10, 15 or 30
@@ -70,7 +68,7 @@ export default class App extends React.Component {
       easing: Easing.linear // motion of the animation
       // set when the animation starts
     }).start(() => {
-      // called when the animation finished
+      // called when the animation finished, looping
       this.runAnimation(time);
     });
   };
